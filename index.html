@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fuerzas y leyes de Newton | REA</title>
+<meta name="description" content="Recurso Educativo Abierto sobre fuerzas y leyes de Newton para nivel secundario. Licencia CC BY-SA 4.0.">
+<meta name="author" content="Lic. Georgina Núñez">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --asfalto:#2B3138;
+  --senal:#F2B705;
+  --cordillera:#1E5A8A;
+  --nieve:#F4F7F9;
+  --freno:#C8322B;
+  --pino:#2F7D4F;
+  --texto:#1F252B;
+  --suave:#5A6670;
+  --linea:#D5DDE3;
+  --papel:#FFFFFF;
+  --escala:1;
+  --titulos:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --cuerpo:"Atkinson Hyperlegible",Verdana,"Segoe UI",sans-serif;
+}
+body.contraste{
+  --asfalto:#000000; --senal:#FFD400; --cordillera:#7FC4FF; --nieve:#000000;
+  --freno:#FF7A70; --pino:#6FE39B; --texto:#FFFFFF; --suave:#E6E6E6;
+  --linea:#FFFFFF; --papel:#000000;
+}
+*{box-sizing:border-box}
+html{font-size:calc(112.5% * var(--escala));scroll-behavior:smooth;scroll-padding-top:4.5rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--nieve);color:var(--texto);font-family:var(--cuerpo);line-height:1.6}
+img,svg{max-width:100%;height:auto}
+a{color:var(--cordillera)}
+:focus-visible{outline:3px solid var(--senal);outline-offset:3px;border-radius:4px}
+.saltar{position:absolute;left:-999px;top:0;background:var(--senal);color:#000;padding:.6rem 1rem;z-index:100}
+.saltar:focus{left:1rem;top:1rem}
+
+/* Barra superior */
+.barra{position:sticky;top:0;z-index:50;background:var(--asfalto);color:#fff;border-bottom:4px solid var(--senal)}
+.barra-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:1rem;padding:.5rem 1rem}
+.marca{font-family:var(--titulos);font-weight:700;font-size:1.15rem;color:#fff;text-decoration:none;white-space:nowrap}
+.menu{display:flex;gap:.25rem;overflow-x:auto;flex:1;scrollbar-width:none}
+.menu::-webkit-scrollbar{display:none}
+.menu a{color:#fff;text-decoration:none;font-size:.85rem;padding:.35rem .6rem;border-radius:6px;white-space:nowrap}
+.menu a:hover{background:rgba(255,255,255,.12)}
+.ajustes{display:flex;gap:.3rem;margin-left:auto}
+@media (max-width:760px){.barra-in{flex-wrap:wrap;gap:.4rem 1rem}.menu{order:3;flex-basis:100%}html{scroll-padding-top:6.5rem}}
+.ajustes button{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5);border-radius:6px;font:inherit;font-size:.8rem;padding:.25rem .55rem;cursor:pointer}
+.ajustes button[aria-pressed="true"]{background:var(--senal);color:#000;border-color:var(--senal)}
+
+/* Portada */
+.portada{background:var(--asfalto);color:#fff;padding:2.5rem 1rem 0}
+.portada-in{max-width:1100px;margin:0 auto}
+.portada h1{font-family:var(--titulos);font-weight:700;font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.02;margin:0 0 .8rem;max-width:16ch}
+.portada p.bajada{font-size:1.15rem;max-width:44ch;margin:0 0 1.5rem;color:#E4E9ED}
+.escena{background:#BFD8EA;border-radius:14px 14px 0 0;overflow:hidden;position:relative}
+body.contraste .figura svg{background:#fff;border-radius:8px}
+.escena svg{display:block;width:100%}
+.mandos{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;padding:1rem 0 1.4rem}
+.btn{font:inherit;font-weight:700;font-size:1rem;border:0;border-radius:10px;padding:.8rem 1.3rem;cursor:pointer;min-height:48px}
+.btn-freno{background:var(--freno);color:#fff}
+.btn-arranque{background:var(--pino);color:#fff}
+.btn-sec{background:var(--papel);color:var(--texto);border:2px solid var(--linea)}
+.estado{font-size:1rem;color:#fff;min-height:1.6em;margin:0}
+
+/* Contenido */
+main{max-width:1100px;margin:0 auto;padding:0 1rem}
+main section{padding:3.5rem 0;border-bottom:1px solid var(--linea)}
+main section:last-of-type{border-bottom:0}
+.col{max-width:42rem}
+h2{font-family:var(--titulos);font-weight:700;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.08;margin:0 0 1rem;color:var(--texto)}
+h3{font-family:var(--titulos);font-weight:600;font-size:1.45rem;margin:1.8rem 0 .5rem}
+p{margin:0 0 1rem}
+.dos{display:grid;grid-template-columns:1fr;gap:2rem;align-items:start}
+@media (min-width:860px){.dos{grid-template-columns:1.1fr 1fr}}
+.placa{display:inline-flex;align-items:center;gap:.5rem;background:var(--asfalto);color:var(--senal);font-family:var(--titulos);font-weight:700;font-size:1.1rem;padding:.2rem .8rem;border-radius:6px;margin-bottom:.8rem;border:2px solid var(--senal)}
+.ley{font-size:1.25rem;font-weight:700;border-left:6px solid var(--senal);padding:.4rem 0 .4rem 1rem;margin:1.2rem 0}
+.ejemplo{background:var(--papel);border:2px solid var(--linea);border-radius:12px;padding:1.1rem 1.2rem;margin:1.2rem 0}
+.ejemplo strong{color:var(--cordillera)}
+.formula{font-family:var(--titulos);font-weight:700;font-size:clamp(2.6rem,7vw,4rem);text-align:center;background:var(--asfalto);color:var(--senal);border-radius:12px;padding:.6rem 1rem;margin:1.2rem 0;letter-spacing:.02em}
+.formula small{display:block;font-family:var(--cuerpo);font-weight:400;font-size:.95rem;color:#fff;letter-spacing:0}
+.figura{margin:0;background:var(--papel);border:2px solid var(--linea);border-radius:12px;padding:1rem}
+.figura figcaption{font-size:.9rem;color:var(--suave);margin-top:.5rem}
+
+/* Fuerzas */
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0}
+.chip{font:inherit;font-size:.95rem;border-radius:999px;padding:.45rem .95rem;border:2px solid currentColor;background:transparent;cursor:pointer;min-height:44px}
+.chip[aria-pressed="true"]{color:#fff!important}
+.chip.peso{color:var(--freno)} .chip.peso[aria-pressed="true"]{background:var(--freno)}
+.chip.normal{color:var(--cordillera)} .chip.normal[aria-pressed="true"]{background:var(--cordillera)}
+.chip.aplicada{color:var(--pino)} .chip.aplicada[aria-pressed="true"]{background:var(--pino)}
+.chip.roz{color:#8F5400} .chip.roz[aria-pressed="true"]{background:#8F5400}
+body.contraste .chip[aria-pressed="true"]{color:#000!important}
+body.contraste .chip.roz{color:#FFB347} body.contraste .chip.roz[aria-pressed="true"]{background:#FFB347}
+body.contraste .btn-freno,body.contraste .btn-arranque,body.contraste .btn-phet{color:#000}
+.f-grupo{transition:opacity .25s}
+.f-grupo.oculto{opacity:0}
+.def-fuerza{min-height:4.5em;background:var(--papel);border-radius:10px;padding:.8rem 1rem;border:2px dashed var(--linea)}
+
+/* Audio */
+.audio{background:var(--papel);border:2px solid var(--linea);border-radius:12px;padding:1rem 1.2rem;margin:1.2rem 0}
+.audio audio{width:100%;margin:.4rem 0}
+.audio .aviso{font-size:.9rem;color:var(--suave);margin:.3rem 0}
+details summary{cursor:pointer;font-weight:700;color:var(--cordillera)}
+details[open] summary{margin-bottom:.5rem}
+
+/* Laboratorio F=ma */
+.lab label{display:block;font-weight:700;margin-top:1rem}
+.lab input[type=range]{width:100%;accent-color:var(--cordillera);height:2rem}
+.lab .valor{font-family:var(--titulos);font-size:1.4rem;color:var(--cordillera)}
+.pista-lab{background:#E3EAF0;border-radius:8px;height:3.4rem;position:relative;overflow:hidden;margin-top:1rem}
+body.contraste .pista-lab{background:#222}
+.barra-a{position:absolute;left:0;top:0;bottom:0;background:var(--senal);width:0;transition:width .3s}
+.resultado-lab{font-size:1.15rem;margin-top:.8rem}
+.resultado-lab b{font-family:var(--titulos);font-size:1.7rem}
+
+/* Explorá */
+.pasos{counter-reset:p;list-style:none;padding:0;margin:1rem 0}
+.pasos li{counter-increment:p;position:relative;padding:0 0 1rem 3rem}
+.pasos li::before{content:counter(p);position:absolute;left:0;top:-.1rem;width:2.1rem;height:2.1rem;border-radius:50%;background:var(--senal);color:#000;font-family:var(--titulos);font-weight:700;font-size:1.2rem;display:grid;place-items:center}
+textarea{width:100%;min-height:7rem;font:inherit;padding:.8rem;border-radius:10px;border:2px solid var(--linea);background:var(--papel);color:var(--texto)}
+.btn-phet{display:inline-block;background:var(--cordillera);color:#fff;text-decoration:none}
+.credito{font-size:.88rem;color:var(--suave)}
+
+/* Preguntas */
+.pregunta{background:var(--papel);border:2px solid var(--linea);border-radius:14px;padding:1.3rem 1.3rem 1rem;margin:1.2rem 0}
+.pregunta legend{font-weight:700;font-size:1.1rem;padding:0;margin-bottom:.8rem;float:left;width:100%}
+.pregunta fieldset{border:0;margin:0;padding:0}
+.opcion{display:flex;gap:.7rem;align-items:flex-start;border:2px solid var(--linea);border-radius:10px;padding:.7rem .9rem;margin:.5rem 0;cursor:pointer;clear:both}
+.opcion:hover{border-color:var(--cordillera)}
+.opcion input{margin-top:.35rem;width:1.15rem;height:1.15rem;accent-color:var(--cordillera)}
+.opcion.ok{border-color:var(--pino);background:rgba(47,125,79,.08)}
+.opcion.mal{border-color:var(--freno);background:rgba(200,50,43,.06)}
+.devolucion{margin-top:.7rem;padding:.7rem .9rem;border-radius:10px;display:none}
+.devolucion.si{display:block;background:rgba(47,125,79,.12);border-left:5px solid var(--pino)}
+.devolucion.no{display:block;background:rgba(200,50,43,.09);border-left:5px solid var(--freno)}
+.marcador{font-family:var(--titulos);font-size:1.5rem;font-weight:700;margin-top:1rem}
+.formatos{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.7rem;margin:1rem 0}
+.formatos div{background:var(--papel);border:2px solid var(--linea);border-radius:12px;padding:.9rem;text-align:center;font-weight:700}
+.formatos span{display:block;font-size:1.8rem}
+
+/* Autoevaluación */
+.check{display:flex;gap:.8rem;align-items:flex-start;padding:.6rem 0;font-size:1.05rem}
+.check input{width:1.3rem;height:1.3rem;margin-top:.25rem;accent-color:var(--pino)}
+.mensaje-auto{margin-top:1rem;padding:1rem;border-radius:10px;background:var(--papel);border:2px solid var(--linea)}
+
+/* Pie */
+footer{background:var(--asfalto);color:#E4E9ED;padding:2.5rem 1rem;margin-top:2rem}
+footer .in{max-width:1100px;margin:0 auto;display:grid;gap:1.5rem}
+@media (min-width:860px){footer .in{grid-template-columns:1fr 1fr}}
+footer a{color:var(--senal)}
+footer h2{color:#fff;font-size:1.8rem}
+.cc{display:inline-flex;gap:.3rem;margin-bottom:.6rem}
+.cc span{display:inline-grid;place-items:center;width:2.2rem;height:2.2rem;border:2px solid #fff;border-radius:50%;font-weight:700;font-size:.85rem}
+footer p{font-size:.95rem}
+</style>
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<header class="barra">
+  <div class="barra-in">
+    <a class="marca" href="#inicio">Leyes de Newton</a>
+    <nav class="menu" aria-label="Secciones">
+      <a href="#fuerza">Fuerzas</a>
+      <a href="#ley1">1ª ley</a>
+      <a href="#ley2">2ª ley</a>
+      <a href="#ley3">3ª ley</a>
+      <a href="#explora">Explorá</a>
+      <a href="#prueba">A prueba</a>
+      <a href="#auto">Autoevaluación</a>
+    </nav>
+    <div class="ajustes" role="group" aria-label="Opciones de lectura">
+      <button type="button" id="menos" aria-label="Achicar la letra">A−</button>
+      <button type="button" id="mas" aria-label="Agrandar la letra">A+</button>
+      <button type="button" id="contraste" aria-pressed="false">Contraste</button>
+    </div>
+  </div>
+</header>
+
+<section class="portada" id="inicio" aria-labelledby="titulo-principal">
+  <div class="portada-in">
+    <h1 id="titulo-principal">¿Por qué nos vamos para adelante cuando frena el colectivo?</h1>
+    <p class="bajada">Seguro te pasó: el colectivo frena de golpe y tu cuerpo sale disparado hacia adelante. Probalo acá y después descubrí qué física hay detrás.</p>
+
+    <div class="escena">
+      <svg id="svg-colectivo" viewBox="0 0 800 300" role="img" aria-labelledby="t-escena d-escena">
+        <title id="t-escena">Un colectivo en una ruta de montaña con un pasajero de pie</title>
+        <desc id="d-escena">Animación: cuando el colectivo frena, el pasajero se inclina hacia adelante; cuando arranca, se inclina hacia atrás.</desc>
+        <!-- cordillera -->
+        <polygon points="0,190 90,95 160,150 250,60 340,140 420,80 520,160 610,70 700,135 800,90 800,190" fill="#7A97AE"/>
+        <polygon points="250,60 228,82 245,78 262,90 272,72" fill="#fff"/>
+        <polygon points="610,70 590,92 606,88 622,98 632,84" fill="#fff"/>
+        <polygon points="420,80 404,98 418,95 432,104 440,92" fill="#fff"/>
+        <rect x="0" y="190" width="800" height="110" fill="#4A535C"/>
+        <rect x="0" y="186" width="800" height="6" fill="#8A9A5B"/>
+        <line id="lineas-ruta" x1="0" y1="268" x2="800" y2="268" stroke="#F2B705" stroke-width="6" stroke-dasharray="44 30"/>
+        <!-- postes -->
+        <g id="postes" fill="#E4E9ED">
+          <rect x="100" y="150" width="6" height="42"/><rect x="380" y="150" width="6" height="42"/><rect x="660" y="150" width="6" height="42"/><rect x="940" y="150" width="6" height="42"/>
+        </g>
+        <!-- colectivo -->
+        <g id="colectivo">
+          <rect x="230" y="120" width="340" height="120" rx="16" fill="#1E5A8A"/>
+          <rect x="230" y="200" width="340" height="12" fill="#F2B705"/>
+          <rect x="545" y="135" width="20" height="55" rx="4" fill="#BFD8EA"/>
+          <rect x="250" y="135" width="280" height="55" rx="6" fill="#DCEBF5"/>
+          <line x1="320" y1="135" x2="320" y2="190" stroke="#1E5A8A" stroke-width="5"/>
+          <line x1="390" y1="135" x2="390" y2="190" stroke="#1E5A8A" stroke-width="5"/>
+          <line x1="460" y1="135" x2="460" y2="190" stroke="#1E5A8A" stroke-width="5"/>
+          <rect x="560" y="210" width="12" height="10" rx="2" fill="#FFE9A8"/>
+          <rect x="228" y="210" width="10" height="10" rx="2" fill="#C8322B"/>
+          <!-- pasajero (gira sobre los pies) -->
+          <g id="pasajero">
+            <circle cx="420" cy="150" r="9" fill="#2B3138"/>
+            <line x1="420" y1="159" x2="420" y2="178" stroke="#2B3138" stroke-width="6" stroke-linecap="round"/>
+            <line x1="420" y1="163" x2="432" y2="152" stroke="#2B3138" stroke-width="4" stroke-linecap="round"/>
+            <line x1="420" y1="178" x2="416" y2="190" stroke="#2B3138" stroke-width="4" stroke-linecap="round"/>
+            <line x1="420" y1="178" x2="425" y2="190" stroke="#2B3138" stroke-width="4" stroke-linecap="round"/>
+          </g>
+          <circle cx="300" cy="242" r="24" fill="#2B3138"/><circle cx="300" cy="242" r="9" fill="#9AA6B0"/>
+          <circle cx="500" cy="242" r="24" fill="#2B3138"/><circle cx="500" cy="242" r="9" fill="#9AA6B0"/>
+        </g>
+        <!-- flecha de sentido -->
+        <g fill="#1F252B" font-family="Atkinson Hyperlegible, Verdana, sans-serif" font-size="16" font-weight="700">
+          <text x="600" y="40">sentido del viaje</text>
+          <polygon points="740,48 760,56 740,64"/><rect x="600" y="53" width="140" height="6"/>
+        </g>
+      </svg>
+    </div>
+    <div class="mandos">
+      <button type="button" class="btn btn-freno" id="btn-colectivo">Frenar el colectivo</button>
+      <p class="estado" id="estado" aria-live="polite">El colectivo va a velocidad constante y el pasajero viaja derecho.</p>
+    </div>
+  </div>
+</section>
+
+<main id="contenido">
+
+<section id="fuerza">
+  <div class="dos">
+    <div class="col">
+      <h2>Primero, ¿qué es una fuerza?</h2>
+      <p>Una <strong>fuerza</strong> es una interacción entre dos cuerpos que puede cambiar su movimiento (hacerlo arrancar, frenar o doblar) o su forma. Las fuerzas se representan con flechas: la dirección de la flecha muestra hacia dónde empuja o tira, y su largo, qué tan intensa es.</p>
+      <p>En el Sistema Internacional, las fuerzas se miden en <strong>newtons (N)</strong>. Para que te des una idea, sostener un alfajor en la mano es hacer una fuerza de aproximadamente medio newton.</p>
+      <p>Tocá cada fuerza para ver dónde actúa sobre la caja:</p>
+      <div class="chips" role="group" aria-label="Mostrar fuerzas">
+        <button type="button" class="chip peso" data-f="peso" aria-pressed="false">Peso</button>
+        <button type="button" class="chip normal" data-f="normal" aria-pressed="false">Normal</button>
+        <button type="button" class="chip aplicada" data-f="aplicada" aria-pressed="false">Fuerza aplicada</button>
+        <button type="button" class="chip roz" data-f="roz" aria-pressed="false">Rozamiento</button>
+      </div>
+      <p class="def-fuerza" id="def-fuerza" aria-live="polite">Elegí una fuerza para leer qué es.</p>
+    </div>
+    <figure class="figura">
+      <svg viewBox="0 0 400 250" role="img" aria-labelledby="t-caja">
+        <title id="t-caja">Diagrama de una caja apoyada en el piso con las fuerzas que actúan sobre ella</title>
+        <defs>
+          <marker id="m-rojo" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10z" fill="#C8322B"/></marker>
+          <marker id="m-azul" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10z" fill="#1E5A8A"/></marker>
+          <marker id="m-verde" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10z" fill="#2F7D4F"/></marker>
+          <marker id="m-naranja" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10z" fill="#B86E00"/></marker>
+        </defs>
+        <rect x="20" y="180" width="360" height="8" fill="#8A9A5B"/>
+        <line x1="20" y1="188" x2="380" y2="188" stroke="#5A6670" stroke-width="2"/>
+        <rect x="160" y="110" width="80" height="70" rx="4" fill="#C9A36B" stroke="#7A5A2E" stroke-width="2"/>
+        <line x1="160" y1="132" x2="240" y2="132" stroke="#7A5A2E" stroke-width="2"/>
+        <g class="f-grupo oculto" data-g="peso"><line x1="200" y1="145" x2="200" y2="238" stroke="#C8322B" stroke-width="6" marker-end="url(#m-rojo)"/><text x="210" y="232" fill="#C8322B" font-size="16" font-weight="700" font-family="Verdana,sans-serif">P</text></g>
+        <g class="f-grupo oculto" data-g="normal"><line x1="200" y1="145" x2="200" y2="40" stroke="#1E5A8A" stroke-width="6" marker-end="url(#m-azul)"/><text x="210" y="50" fill="#1E5A8A" font-size="16" font-weight="700" font-family="Verdana,sans-serif">N</text></g>
+        <g class="f-grupo oculto" data-g="aplicada"><line x1="240" y1="145" x2="345" y2="145" stroke="#2F7D4F" stroke-width="6" marker-end="url(#m-verde)"/><text x="300" y="135" fill="#2F7D4F" font-size="16" font-weight="700" font-family="Verdana,sans-serif">F</text></g>
+        <g class="f-grupo oculto" data-g="roz"><line x1="160" y1="176" x2="80" y2="176" stroke="#B86E00" stroke-width="6" marker-end="url(#m-naranja)"/><text x="88" y="166" fill="#B86E00" font-size="16" font-weight="700" font-family="Verdana,sans-serif">Fr</text></g>
+      </svg>
+      <figcaption>Una caja que alguien empuja hacia la derecha sobre el piso.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="ley1">
+  <div class="dos">
+    <div class="col">
+      <span class="placa">1ª ley</span>
+      <h2>Inercia: los cuerpos no quieren cambiar</h2>
+      <p class="ley">Si sobre un cuerpo no actúa ninguna fuerza (o las fuerzas se compensan), el cuerpo sigue como estaba: quieto, o moviéndose en línea recta a velocidad constante.</p>
+      <p>A esta tendencia a mantener el estado de movimiento se la llama <strong>inercia</strong>. Cuanta más masa tiene un cuerpo, más inercia tiene: cuesta más ponerlo en movimiento y cuesta más frenarlo.</p>
+      <div class="ejemplo">
+        <p><strong>Volvamos al colectivo.</strong> Mientras viaja, vos te movés a la misma velocidad que él. Cuando el chofer frena, los frenos actúan sobre el colectivo, pero no sobre tu cuerpo. Por inercia, tu cuerpo intenta seguir avanzando, y por eso sentís que te vas para adelante. Nadie te empuja: es el colectivo el que se frena “debajo” tuyo.</p>
+        <p style="margin:0">Cuando arranca, pasa lo contrario: el colectivo acelera y tu cuerpo tiende a quedarse donde estaba, por eso te vas para atrás.</p>
+      </div>
+    </div>
+    <div>
+      <div class="audio" data-audio>
+        <p style="margin:0;font-weight:700">Escuchá la explicación</p>
+        <audio controls preload="none" src="audio/primera-ley.mp3"></audio>
+        <p class="aviso" hidden>El audio todavía no está disponible. Podés leer la transcripción.</p>
+        <details>
+          <summary>Leer la transcripción</summary>
+          <p>Hola. Hoy vamos a hablar de la inercia. ¿Te pasó alguna vez que el colectivo frena de golpe y tenés que agarrarte del pasamanos para no caerte? Eso pasa porque tu cuerpo tiende a seguir moviéndose como venía. La primera ley de Newton dice que, si nada actúa sobre un cuerpo, ese cuerpo sigue como estaba: si estaba quieto, sigue quieto, y si se movía, sigue moviéndose en línea recta. Por eso es tan importante usar el cinturón de seguridad en el auto: cuando el auto frena, el cinturón es la fuerza que te frena a vos.</p>
+        </details>
+      </div>
+      <div class="ejemplo">
+        <p style="margin:0"><strong>¿Y el cinturón de seguridad?</strong> Es justamente la fuerza que te frena junto con el auto. Sin cinturón, en un choque tu cuerpo seguiría avanzando a la velocidad que traía el vehículo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ley2">
+  <div class="dos">
+    <div class="col">
+      <span class="placa">2ª ley</span>
+      <h2>Fuerza, masa y aceleración</h2>
+      <p class="ley">La aceleración de un cuerpo es mayor cuanto mayor es la fuerza que actúa sobre él, y menor cuanto mayor es su masa.</p>
+      <div class="formula">F = m · a<small>fuerza (N) = masa (kg) × aceleración (m/s²)</small></div>
+      <div class="ejemplo">
+        <p style="margin:0"><strong>Pensalo en el súper.</strong> Si empujás con la misma fuerza un changuito vacío y uno lleno de compras, el vacío acelera mucho más. Y si querés que el lleno acelere igual, vas a tener que empujar más fuerte.</p>
+      </div>
+      <h3>Un ejemplo resuelto</h3>
+      <p>Empujamos un carrito de 10 kg con una fuerza de 30 N. ¿Cuál es su aceleración? Despejamos de la fórmula: a = F / m = 30 N / 10 kg = <strong>3 m/s²</strong>. Esto quiere decir que el carrito aumenta su velocidad en 3 metros por segundo cada segundo.</p>
+    </div>
+    <div class="figura lab">
+      <p style="margin:0;font-weight:700">Laboratorio: probá vos</p>
+      <p class="credito" style="margin:.2rem 0 0">Mové los controles y mirá cómo cambia la aceleración.</p>
+      <label for="r-fuerza">Fuerza aplicada: <span class="valor" id="v-fuerza">30</span> N</label>
+      <input type="range" id="r-fuerza" min="0" max="100" value="30">
+      <label for="r-masa">Masa del carrito: <span class="valor" id="v-masa">10</span> kg</label>
+      <input type="range" id="r-masa" min="1" max="50" value="10">
+      <div class="pista-lab" aria-hidden="true"><div class="barra-a" id="barra-a"></div></div>
+      <p class="resultado-lab" aria-live="polite">Aceleración: <b id="v-acel">3,00</b> m/s²<br><span id="texto-lab" class="credito"></span></p>
+    </div>
+  </div>
+</section>
+
+<section id="ley3">
+  <div class="dos">
+    <div class="col">
+      <span class="placa">3ª ley</span>
+      <h2>Acción y reacción</h2>
+      <p class="ley">Cuando un cuerpo ejerce una fuerza sobre otro, el segundo ejerce sobre el primero una fuerza de igual intensidad y sentido contrario.</p>
+      <p>Las fuerzas siempre vienen de a pares. Ojo con un detalle importante: <strong>cada fuerza del par actúa sobre un cuerpo distinto</strong>. Por eso no se anulan entre sí.</p>
+      <div class="ejemplo">
+        <p><strong>¿Cómo hacés para caminar?</strong> Con cada paso, tu pie empuja el suelo hacia atrás. El suelo, como reacción, te empuja a vos hacia adelante. ¡Es el suelo el que te hace avanzar! Por eso cuesta tanto caminar sobre hielo: casi no hay rozamiento y el pie resbala sin poder empujar el suelo.</p>
+        <p style="margin:0">Otros ejemplos: un globo que se desinfla y sale volando, el retroceso al saltar desde un bote o el remo que empuja el agua hacia atrás.</p>
+      </div>
+    </div>
+    <figure class="figura">
+      <svg viewBox="0 0 400 260" role="img" aria-labelledby="t-paso">
+        <title id="t-paso">Una persona caminando: el pie empuja el suelo hacia atrás y el suelo empuja a la persona hacia adelante</title>
+        <rect x="20" y="200" width="360" height="10" fill="#8A9A5B"/>
+        <g stroke="#2B3138" stroke-width="7" stroke-linecap="round" fill="none">
+          <circle cx="200" cy="62" r="18" fill="#2B3138" stroke="none"/>
+          <line x1="200" y1="82" x2="196" y2="140"/>
+          <line x1="198" y1="96" x2="226" y2="122"/>
+          <line x1="198" y1="96" x2="172" y2="120"/>
+          <line x1="196" y1="140" x2="226" y2="198"/>
+          <line x1="196" y1="140" x2="160" y2="196"/>
+        </g>
+        <line x1="150" y1="222" x2="80" y2="222" stroke="#C8322B" stroke-width="6" marker-end="url(#m-rojo)"/>
+        <text x="40" y="246" fill="#C8322B" font-size="14" font-weight="700" font-family="Verdana,sans-serif">el pie empuja el suelo</text>
+        <line x1="168" y1="182" x2="238" y2="182" stroke="#1E5A8A" stroke-width="6" marker-end="url(#m-azul)"/>
+        <text x="248" y="187" fill="#1E5A8A" font-size="14" font-weight="700" font-family="Verdana,sans-serif">el suelo te empuja</text>
+      </svg>
+      <figcaption>Las dos flechas tienen el mismo largo (igual intensidad) y sentido contrario, pero actúan sobre cuerpos distintos.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="explora">
+  <div class="dos">
+    <div class="col">
+      <h2>¡Explorá con el simulador!</h2>
+      <p>Ahora te toca experimentar. Vamos a usar una simulación gratuita y abierta de la Universidad de Colorado.</p>
+      <ol class="pasos">
+        <li><strong>Antes de abrirlo, anotá tu hipótesis:</strong> si empujás un carrito con la misma fuerza, ¿qué pasa cuando hay mucho rozamiento y qué pasa cuando no hay nada?</li>
+        <li>Abrí el simulador y entrá a la pantalla <em>Fricción</em>.</li>
+        <li>Aplicá una fuerza al objeto con fricción y sin fricción. Cambiá una sola cosa por vez.</li>
+        <li>Volvé acá y compará lo que observaste con lo que habías pensado.</li>
+      </ol>
+      <p><a class="btn btn-phet" href="https://phet.colorado.edu/es/simulations/forces-and-motion-basics" target="_blank" rel="noopener">Abrir el simulador PhET</a></p>
+      <p class="credito">Simulación <em>Fuerzas y movimiento: fundamentos</em>, de PhET Interactive Simulations, Universidad de Colorado Boulder, con licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener">CC BY 4.0</a>. Se abre en una pestaña nueva.</p>
+    </div>
+    <div>
+      <label for="hipotesis"><strong>Mi hipótesis</strong></label>
+      <textarea id="hipotesis" placeholder="Yo creo que…"></textarea>
+      <label for="observacion" style="display:block;margin-top:1rem"><strong>Lo que observé en el simulador</strong></label>
+      <textarea id="observacion" placeholder="Cuando saqué el rozamiento…"></textarea>
+      <p class="credito">Lo que escribas se guarda solo en este dispositivo.</p>
+    </div>
+  </div>
+</section>
+
+<section id="prueba">
+  <div class="col">
+    <h2>¡A poner a prueba lo que aprendiste!</h2>
+    <p>Elegí una respuesta en cada pregunta. Si te equivocás, vas a recibir una pista para volver a intentarlo.</p>
+  </div>
+  <div id="preguntas" class="col"></div>
+  <p class="marcador col" id="marcador" aria-live="polite"></p>
+
+  <div class="col">
+    <h3>Tu ejemplo de la vida cotidiana</h3>
+    <p>Buscá en tu casa, en la calle o en la escuela una situación donde aparezca alguna de las leyes de Newton. Mostrala como te resulte más cómodo y explicá qué ley reconocés y por qué.</p>
+    <div class="formatos">
+      <div><span aria-hidden="true">📷</span>Una foto</div>
+      <div><span aria-hidden="true">✏️</span>Un dibujo</div>
+      <div><span aria-hidden="true">🎙️</span>Un audio</div>
+      <div><span aria-hidden="true">📝</span>Un texto</div>
+    </div>
+    <p id="entrega">Subí tu producción al aula virtual o compartila con tu docente.</p>
+  </div>
+</section>
+
+<section id="auto">
+  <div class="col">
+    <h2>Autoevaluación</h2>
+    <p>Marcá lo que ya podés hacer. Sé sincero/a: esto es para vos.</p>
+    <div id="checks">
+      <label class="check"><input type="checkbox" data-sec="#fuerza"> Puedo identificar las fuerzas que actúan sobre un cuerpo.</label>
+      <label class="check"><input type="checkbox" data-sec="#ley1"> Puedo explicar con mis palabras qué es la inercia.</label>
+      <label class="check"><input type="checkbox" data-sec="#ley2"> Puedo usar F = m · a para resolver un problema.</label>
+      <label class="check"><input type="checkbox" data-sec="#ley3"> Puedo reconocer pares de acción y reacción.</label>
+    </div>
+    <div class="mensaje-auto" id="mensaje-auto" aria-live="polite">Marcá las afirmaciones para recibir una sugerencia.</div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="in">
+    <div>
+      <h2>Créditos</h2>
+      <p><strong>Autora:</strong> Lic. Georgina Núñez.</p>
+      <p>Simulación enlazada: <em>Fuerzas y movimiento: fundamentos</em>, PhET Interactive Simulations, Universidad de Colorado Boulder (CC BY 4.0).</p>
+      <p>Las ilustraciones fueron creadas especialmente para este recurso.</p>
+      <p>Desarrollo del sitio realizado con asistencia de IA (Claude, Anthropic).</p>
+    </div>
+    <div>
+      <h2>Licencia</h2>
+      <div class="cc" aria-hidden="true"><span>cc</span><span>BY</span><span>SA</span></div>
+      <p>Este recurso se publica bajo una licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">Creative Commons Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)</a>. Podés copiarlo, adaptarlo y compartirlo, siempre que cites a la autora y publiques tu versión con la misma licencia.</p>
+      <p><strong>Cómo citarlo:</strong> «¿Por qué nos vamos para adelante cuando frena el colectivo? Fuerzas y leyes de Newton», por Georgina Núñez, CC BY-SA 4.0.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ===== Configuración para docentes que reutilicen el recurso ===== */
+// Pegá entre las comillas el enlace donde los estudiantes entregan su ejemplo (aula virtual, formulario, etc.)
+const ENLACE_ENTREGA = "";
+
+/* ===== Opciones de lectura ===== */
+(function(){
+  let escala = 1;
+  const raiz = document.documentElement;
+  const aplicar = () => raiz.style.setProperty('--escala', escala);
+  document.getElementById('mas').onclick = () => { escala = Math.min(1.5, +(escala + 0.1).toFixed(2)); aplicar(); };
+  document.getElementById('menos').onclick = () => { escala = Math.max(0.8, +(escala - 0.1).toFixed(2)); aplicar(); };
+  const bc = document.getElementById('contraste');
+  bc.onclick = () => {
+    const on = document.body.classList.toggle('contraste');
+    bc.setAttribute('aria-pressed', on);
+  };
+})();
+
+/* ===== Colectivo ===== */
+(function(){
+  const lineas = document.getElementById('lineas-ruta');
+  const postes = document.getElementById('postes');
+  const pasajero = document.getElementById('pasajero');
+  const btn = document.getElementById('btn-colectivo');
+  const estado = document.getElementById('estado');
+  const reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const VMAX = 7;
+  let v = reducir ? 0 : VMAX, objetivo = v, offset = 0, angulo = 0, modo = reducir ? 'quieto' : 'viaja';
+  if (reducir) { btn.textContent = 'Arrancar el colectivo'; btn.className = 'btn btn-arranque'; estado.textContent = 'El colectivo está detenido. Tocá el botón para arrancar.'; }
+
+  btn.onclick = () => {
+    if (modo === 'viaja' || modo === 'arranca') {
+      modo = 'frena'; objetivo = 0;
+      btn.textContent = 'Arrancar de nuevo'; btn.className = 'btn btn-arranque';
+      estado.textContent = '¡Frenó! El pasajero se va para adelante: su cuerpo tiende a seguir moviéndose.';
+    } else {
+      modo = 'arranca'; objetivo = VMAX;
+      btn.textContent = 'Frenar el colectivo'; btn.className = 'btn btn-freno';
+      estado.textContent = '¡Arrancó! El pasajero se va para atrás: su cuerpo tiende a quedarse quieto.';
+    }
+    if (reducir) { angulo = modo === 'frena' ? 16 : -12; dibujar(); setTimeout(()=>{angulo=0;dibujar();}, 1500); }
+  };
+
+  function dibujar(){
+    lineas.setAttribute('stroke-dashoffset', offset);
+    postes.setAttribute('transform', 'translate(' + (-(offset % 280)).toFixed(1) + ',0)');
+    pasajero.setAttribute('transform', 'rotate(' + angulo.toFixed(2) + ' 420 190)');
+  }
+
+  function paso(){
+    const antes = v;
+    if (v < objetivo) v = Math.min(objetivo, v + 0.09);
+    else if (v > objetivo) v = Math.max(objetivo, v - 0.12);
+    const a = v - antes; // negativo al frenar
+    const destino = a < 0 ? 18 : (a > 0 ? -12 : 0);
+    angulo += (destino - angulo) * 0.12;
+    offset += v;
+    if (Math.abs(v - objetivo) < 0.001) {
+      if (modo === 'frena') { estado.textContent = 'El colectivo se detuvo y el pasajero recupera el equilibrio.'; modo = 'quieto'; }
+      else if (modo === 'arranca') { estado.textContent = 'El colectivo va a velocidad constante y el pasajero viaja derecho.'; modo = 'viaja'; }
+    }
+    dibujar();
+    requestAnimationFrame(paso);
+  }
+  if (!reducir) requestAnimationFrame(paso); else dibujar();
+})();
+
+/* ===== Fuerzas sobre la caja ===== */
+(function(){
+  const defs = {
+    peso: '<strong>Peso (P):</strong> es la fuerza con la que la Tierra atrae a los cuerpos. Siempre apunta hacia abajo, hacia el centro de la Tierra.',
+    normal: '<strong>Normal (N):</strong> es la fuerza con la que el piso sostiene a la caja. Es perpendicular a la superficie de apoyo.',
+    aplicada: '<strong>Fuerza aplicada (F):</strong> es la fuerza que hacemos nosotros al empujar o tirar de un objeto.',
+    roz: '<strong>Rozamiento (Fr):</strong> aparece entre las superficies en contacto y se opone al movimiento. Gracias a él podemos caminar sin resbalar.'
+  };
+  const caja = document.getElementById('def-fuerza');
+  document.querySelectorAll('.chip').forEach(b => {
+    b.onclick = () => {
+      const on = b.getAttribute('aria-pressed') !== 'true';
+      b.setAttribute('aria-pressed', on);
+      document.querySelector('.f-grupo[data-g="' + b.dataset.f + '"]').classList.toggle('oculto', !on);
+      caja.innerHTML = on ? defs[b.dataset.f] : 'Elegí una fuerza para leer qué es.';
+    };
+  });
+})();
+
+/* ===== Audios: si falta el archivo, mostrar aviso ===== */
+document.querySelectorAll('[data-audio]').forEach(c => {
+  const a = c.querySelector('audio');
+  const aviso = c.querySelector('.aviso');
+  a.addEventListener('error', () => { a.hidden = true; aviso.hidden = false; });
+  if (location.protocol !== 'file:') fetch(a.getAttribute('src'), {method:'HEAD'}).then(r => { if (!r.ok) { a.hidden = true; aviso.hidden = false; } }).catch(() => { a.hidden = true; aviso.hidden = false; });
+});
+
+/* ===== Laboratorio F = m · a ===== */
+(function(){
+  const rf = document.getElementById('r-fuerza'), rm = document.getElementById('r-masa');
+  const fmt = n => n.toFixed(2).replace('.', ',');
+  function act(){
+    const F = +rf.value, m = +rm.value, a = F / m;
+    document.getElementById('v-fuerza').textContent = F;
+    document.getElementById('v-masa').textContent = m;
+    document.getElementById('v-acel').textContent = fmt(a);
+    document.getElementById('barra-a').style.width = Math.min(100, a / 20 * 100) + '%';
+    let t;
+    if (F === 0) t = 'Sin fuerza neta no hay aceleración: el carrito sigue como estaba (¡primera ley!).';
+    else if (a >= 10) t = 'Mucha fuerza para poca masa: el carrito sale disparado.';
+    else if (a < 1) t = 'Mucha masa para esa fuerza: al carrito le cuesta acelerar.';
+    else t = 'Probá duplicar la masa: ¿qué le pasa a la aceleración?';
+    document.getElementById('texto-lab').textContent = t;
+  }
+  rf.oninput = act; rm.oninput = act; act();
+})();
+
+/* ===== Notas del simulador (se guardan en el dispositivo) ===== */
+['hipotesis','observacion'].forEach(id => {
+  const t = document.getElementById(id);
+  try { const g = localStorage.getItem('rea-newton-' + id); if (g) t.value = g; } catch(e) {}
+  t.addEventListener('input', () => { try { localStorage.setItem('rea-newton-' + id, t.value); } catch(e) {} });
+});
+
+/* ===== Preguntas con retroalimentación ===== */
+const PREGUNTAS = [
+  { q: 'El colectivo frena de golpe y te vas para adelante. ¿Por qué pasa esto?',
+    op: ['El colectivo te empuja hacia adelante.', 'Tu cuerpo tiende a seguir moviéndose como venía.', 'El motor ejerce una fuerza sobre los pasajeros.'],
+    ok: 1,
+    bien: '¡Exacto! Es la inercia: los frenos actúan sobre el colectivo, pero tu cuerpo intenta seguir con la misma velocidad.',
+    pista: 'Pensá en la primera ley: ¿alguien te empuja realmente, o es el colectivo el que cambia su movimiento?' },
+  { q: 'Empujás con la misma fuerza un changuito vacío y uno lleno. ¿Cuál acelera más?',
+    op: ['El vacío.', 'El lleno.', 'Los dos aceleran igual.'],
+    ok: 0,
+    bien: '¡Muy bien! Con la misma fuerza, el que tiene menos masa acelera más (a = F / m).',
+    pista: 'Revisá la segunda ley: si la fuerza es la misma y la masa aumenta, ¿qué le pasa a la aceleración?' },
+  { q: 'Un carrito de 4 kg recibe una fuerza de 20 N. ¿Cuál es su aceleración?',
+    op: ['80 m/s²', '5 m/s²', '0,2 m/s²', '24 m/s²'],
+    ok: 1,
+    bien: '¡Correcto! a = F / m = 20 N / 4 kg = 5 m/s².',
+    pista: 'Despejá la aceleración de F = m · a: tenés que dividir la fuerza por la masa.' },
+  { q: 'Cuando caminás, ¿qué fuerza te hace avanzar?',
+    op: ['La fuerza de tus piernas, sin intervención de nada más.', 'La fuerza que el suelo ejerce sobre vos, como reacción a que lo empujás hacia atrás.', 'El empuje del aire.'],
+    ok: 1,
+    bien: '¡Así es! Tu pie empuja el suelo hacia atrás y el suelo te empuja hacia adelante: tercera ley.',
+    pista: 'Pensá en la tercera ley: si tu pie empuja el suelo hacia atrás, ¿qué hace el suelo?' },
+  { q: 'Una pelota rueda por el piso y termina frenándose sola. ¿Esto contradice la primera ley?',
+    op: ['Sí, porque se frenó sin que nadie la tocara.', 'No, porque sobre la pelota actúa el rozamiento, que la va frenando.'],
+    ok: 1,
+    bien: '¡Perfecto! No se frena “sola”: el rozamiento con el piso y el aire actúa sobre ella.',
+    pista: 'Volvé a la sección de fuerzas: ¿hay alguna fuerza que se oponga al movimiento cuando dos superficies están en contacto?' }
+];
+(function(){
+  const cont = document.getElementById('preguntas');
+  const logradas = new Set();
+  const marcador = document.getElementById('marcador');
+  PREGUNTAS.forEach((p, i) => {
+    const div = document.createElement('div');
+    div.className = 'pregunta';
+    const fs = document.createElement('fieldset');
+    const lg = document.createElement('legend');
+    lg.textContent = (i + 1) + '. ' + p.q;
+    fs.appendChild(lg);
+    p.op.forEach((o, j) => {
+      const lab = document.createElement('label');
+      lab.className = 'opcion';
+      const inp = document.createElement('input');
+      inp.type = 'radio'; inp.name = 'p' + i; inp.value = j;
+      lab.appendChild(inp);
+      lab.appendChild(document.createTextNode(o));
+      fs.appendChild(lab);
+    });
+    const dev = document.createElement('div');
+    dev.className = 'devolucion';
+    dev.setAttribute('aria-live', 'polite');
+    div.appendChild(fs); div.appendChild(dev);
+    cont.appendChild(div);
+    fs.addEventListener('change', e => {
+      const j = +e.target.value;
+      fs.querySelectorAll('.opcion').forEach(l => l.classList.remove('ok', 'mal'));
+      const lab = e.target.closest('.opcion');
+      if (j === p.ok) {
+        lab.classList.add('ok'); dev.className = 'devolucion si'; dev.textContent = p.bien; logradas.add(i);
+      } else {
+        lab.classList.add('mal'); dev.className = 'devolucion no'; dev.textContent = 'Todavía no. ' + p.pista; logradas.delete(i);
+      }
+      const n = logradas.size;
+      marcador.textContent = 'Respuestas correctas: ' + n + ' de ' + PREGUNTAS.length + (n === PREGUNTAS.length ? '. ¡Excelente trabajo!' : '');
+    });
+  });
+  if (ENLACE_ENTREGA) {
+    document.getElementById('entrega').innerHTML = '<a class="btn btn-phet" href="' + ENLACE_ENTREGA + '" target="_blank" rel="noopener">Entregar mi ejemplo</a>';
+  }
+})();
+
+/* ===== Autoevaluación ===== */
+(function(){
+  const checks = [...document.querySelectorAll('#checks input')];
+  const msj = document.getElementById('mensaje-auto');
+  const nombres = {'#fuerza':'las fuerzas', '#ley1':'la primera ley', '#ley2':'la segunda ley', '#ley3':'la tercera ley'};
+  checks.forEach(c => c.addEventListener('change', () => {
+    const faltan = checks.filter(x => !x.checked);
+    if (faltan.length === 0) msj.textContent = '¡Muy bien! Ya podés explicar las leyes de Newton. Ahora contale a alguien de tu casa por qué nos vamos para adelante cuando frena el colectivo.';
+    else {
+      msj.innerHTML = 'Te sugerimos repasar: ' + faltan.map(x => '<a href="' + x.dataset.sec + '">' + nombres[x.dataset.sec] + '</a>').join(', ') + '. ¡Podés volver a mirar las explicaciones y probar de nuevo!';
+    }
+  }));
+})();
+</script>
+</body>
+</html>
