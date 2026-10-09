@@ -32,7 +32,7 @@ En la guía de reutilización encontrás sugerencias de adaptación y criterios 
 
 ## Cómo citarlo
 
-> «¿Por qué nos vamos para adelante cuando frena el colectivo? Fuerzas y leyes de Newton», por Georgina Núñez, bajo licencia CC BY-SA 4.0. https://github.com/mat08692/leyesdenewtondonaire
+> «¿Por qué nos vamos para adelante cuando frena el colectivo? Fuerzas y leyes de Newton», por Matias Donaire, bajo licencia CC BY-SA 4.0. https://github.com/mat08692/leyesdenewtondonaire
 
 Si lo modificás, citá la obra original, indicá qué cambios hiciste y compartí tu versión con la misma licencia.
 
