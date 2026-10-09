@@ -2,7 +2,7 @@
 
 Recurso Educativo Abierto (REA) para trabajar las fuerzas y las tres leyes de Newton a partir de situaciones de la vida cotidiana.
 
-**Ver el sitio:** [pegar aquí el enlace de GitHub Pages]
+**Ver el sitio:** https://mat08692.github.io/leyesdenewtondonaire/
 
 ## Sobre el recurso
 
@@ -32,7 +32,7 @@ En la guía de reutilización encontrás sugerencias de adaptación y criterios 
 
 ## Cómo citarlo
 
-> «¿Por qué nos vamos para adelante cuando frena el colectivo? Fuerzas y leyes de Newton», por Georgina Núñez, bajo licencia CC BY-SA 4.0. [enlace al repositorio]
+> «¿Por qué nos vamos para adelante cuando frena el colectivo? Fuerzas y leyes de Newton», por Georgina Núñez, bajo licencia CC BY-SA 4.0. https://github.com/mat08692/leyesdenewtondonaire
 
 Si lo modificás, citá la obra original, indicá qué cambios hiciste y compartí tu versión con la misma licencia.
 
