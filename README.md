@@ -6,7 +6,7 @@ Recurso Educativo Abierto (REA) para trabajar las fuerzas y las tres leyes de Ne
 
 ## Sobre el recurso
 
-- **Autora:** Lic. Georgina Núñez
+- **Autora:** Ing. Matias Donaire
 - **Área:** Física. Mecánica: fuerzas y leyes de Newton
 - **Destinatarios:** estudiantes de nivel secundario (ciclo orientado) y de cursos o talleres de ingreso a estudios superiores
 - **Licencia:** [Creative Commons Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/deed.es)
